@@ -2,19 +2,20 @@ import sqlite3
 import pandas as pd
 
 try:
-    # I am assuming Company Database is "company" and making connection
-    con = sqlite3.connect("company.db")
+    #Company Database is "Data Engineer_ETL Assignment" : 
+    con = sqlite3.connect("Data Engineer_ETL Assignment.db")
     # Making cursor to excecute query 
     cur = con.cursor()
 
     # Preparing Query to get the desired resultset
-    fetch_sql = '''SELECT c.customer_id as Customer,c.age as Age, i.item_name as Item, SUM(o.quantity) as Quantity FROM Sales s
-                        INNER JOIN Customer c
-                        ON s.customer_id = c.customer_id
-                        INNER JOIN Orders o
-                        on s.sales_id = o.sales_id
-                        INNNER JOIN Items i
-                        on o.item_id = i.item_id
+    fetch_sql = '''SELECT c.customer_id as Customer,c.age as Age, i.item_name as Item, SUM(o.quantity) as Quantity 
+                    FROM sales s
+                    INNER JOIN customers c
+                    ON s.customer_id = c.customer_id
+                    INNER JOIN orders o
+                    on s.sales_id = o.sales_id
+                    INNER JOIN items i
+                    on o.item_id = i.item_id
                     GROUP BY 1,2,3 ;
                     '''
     try:
